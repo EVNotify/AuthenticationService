@@ -4,6 +4,7 @@ const express = require('express');
 const errors = require('./errors.json');
 const port = process.env.PORT || 3002;
 
+const authorizationMiddleware = require('./middlewares/authorization');
 const authenticationRouter = require('./routes/authentication');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -31,7 +32,7 @@ app.use(express.urlencoded({
 }));
 
 // route handling
-app.use('/authentication', authenticationRouter);
+app.use('/authentication', authorizationMiddleware, authenticationRouter);
 
 // unknown route
 app.use((_req, _res, next) => next(errors.UNKNOWN_ROUTE));
