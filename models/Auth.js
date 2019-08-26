@@ -13,7 +13,8 @@ const options = {
 const AuthSchema = new mongoose.Schema({
     akey: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     hash: {
         type: String,
