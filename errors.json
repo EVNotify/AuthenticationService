@@ -14,5 +14,13 @@
     "AKEY_GENERATION": {
         "code": 409,
         "message": "An error occured trying to generate new AKey"
+    },
+    "AKEY_ALREADY_REGISTERED": {
+        "code": 409,
+        "message": "Provided AKey has already been registered"
+    },
+    "INVALID_PASSWORD": {
+        "code": 400,
+        "message": "Password invalid. It must be a string with at least 6 characters"
     }
 }
