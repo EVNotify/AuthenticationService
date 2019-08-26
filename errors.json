@@ -22,5 +22,13 @@
     "INVALID_PASSWORD": {
         "code": 400,
         "message": "Password invalid. It must be a string with at least 6 characters"
+    },
+    "AKEY_NOT_REGISTERED": {
+        "code": 404,
+        "message": "Provided AKey has not been registered"
+    },
+    "UNAUTHORIZED": {
+        "code": 401,
+        "message": "Invalid credentials"
     }
 }

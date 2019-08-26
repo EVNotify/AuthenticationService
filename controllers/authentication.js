@@ -39,7 +39,16 @@ const register = asyncHandler(async (req, res, next) => {
 });
 
 const login = asyncHandler(async (req, res, next) => {
+    if (!req.body.password || req.body.password.length <= 6) return next(errors.INVALID_PASSWORD);
+    const authObj = await AuthModel.findOne({
+        akey: req.params.akey
+    });
 
+    if (!authObj) return next(errors.AKEY_NOT_REGISTERED);
+    if (!(await bcrypt.compare(req.body.password, authObj.hash))) return next(errors.UNAUTHORIZED);
+    res.json({
+        token: authObj.token
+    });
 });
 
 module.exports = {
