@@ -1,0 +1,25 @@
+{
+  "name": "authenticationservice",
+  "version": "1.0.0",
+  "description": "Service to provide authentication functionality to the API backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EVNotify/AuthenticationService.git"
+  },
+  "author": "GPlay97",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/EVNotify/AuthenticationService/issues"
+  },
+  "homepage": "https://github.com/EVNotify/AuthenticationService#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.11"
+  }
+}
