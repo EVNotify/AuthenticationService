@@ -7,5 +7,6 @@ router.get('/akey', authenticationController.getUnusedAKey);
 
 router.post('/:akey/', authenticationController.register);
 router.post('/:akey/login', authenticationController.login);
+router.post('/:akey/verify', authenticationController.verifyToken);
 
 module.exports = router;

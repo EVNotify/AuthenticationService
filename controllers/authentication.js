@@ -51,8 +51,23 @@ const login = asyncHandler(async (req, res, next) => {
     });
 });
 
+const verifyToken = asyncHandler(async (req, res, next) => {
+    if (!req.headers.authentication || !req.headers.authentication.length) return next(errors.UNAUTHORIZED);
+
+    const authObj = await AuthModel.findOne({
+        akey: req.params.akey
+    });
+
+    if (!authObj) return next(errors.AKEY_NOT_REGISTERED);
+    if (authObj.token !== req.headers.authentication) return next(errors.INVALID_TOKEN);
+    res.json({
+        verified: true
+    });
+});
+
 module.exports = {
     getUnusedAKey,
     register,
-    login
+    login,
+    verifyToken
 };
