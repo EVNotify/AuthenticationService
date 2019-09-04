@@ -27,6 +27,14 @@
         "code": 404,
         "message": "Provided AKey has not been registered"
     },
+    "MISSING_AUTHORIZATION": {
+        "code": 400,
+        "message": "Missing authorization header. Ensure that API Key is provided as Bearer token within Authorization header"
+    },
+    "UNKNOWN_AUTHORIZATION": {
+        "code": 404,
+        "message": "Authorization key invalid or not found. Ensure to send a Bearer Token within Authorization header"
+    },
     "UNAUTHORIZED": {
         "code": 401,
         "message": "Invalid credentials"
