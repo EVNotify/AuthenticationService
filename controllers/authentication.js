@@ -19,7 +19,7 @@ const getUnusedAKey = asyncHandler(async (_req, res, next) => {
 });
 
 const register = asyncHandler(async (req, res, next) => {
-    if (!req.body.password || req.body.password.length <= 6) return next(errors.INVALID_PASSWORD);
+    if (!req.body.password || req.body.password.length < 6) return next(errors.INVALID_PASSWORD);
     if (await (AuthModel.findOne({
         akey: req.params.akey
     }))) {
@@ -29,7 +29,6 @@ const register = asyncHandler(async (req, res, next) => {
 
     await AuthModel.create({
         akey: req.params.akey,
-        test: 1,
         hash: await bcrypt.hash(req.body.password, 10),
         token
     });
