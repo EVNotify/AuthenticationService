@@ -10,7 +10,7 @@ const authModel = require('../models/Auth');
 chai.use(chaiHttp);
 
 before((done) => {
-    server.on('server_ready', () => done());
+    server.on('server_ready', async () => done());
 });
 
 let AKey;
@@ -46,7 +46,6 @@ describe('Authentication', () => {
             .end((err, response) => {
                 should.not.exist(err);
                 should.exist(response);
-                console.log(response.body);
                 response.should.have.status(404);
                 response.body.should.have.property('error').eql(errors.UNKNOWN_AUTHORIZATION);
                 done();
@@ -55,7 +54,7 @@ describe('Authentication', () => {
         it('Requesting AKey should return random AKey', (done) => {
             chai.request(server)
                 .get('/authentication/akey')
-                .set('Authorization', 'Bearer Test2')
+                .set('Authorization', 'Bearer TestKey')
                 .end((err, response) => {
                     should.not.exist(err);
                     should.exist(response);
@@ -68,7 +67,7 @@ describe('Authentication', () => {
         it('Requesting AKey again should return a different AKey', (done) => {
             chai.request(server)
                 .get('/authentication/akey')
-                .set('Authorization', 'Bearer Test2')
+                .set('Authorization', 'Bearer TestKey')
                 .end((err, response) => {
                     should.not.exist(err);
                     should.exist(response);
