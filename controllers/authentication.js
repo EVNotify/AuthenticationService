@@ -38,7 +38,7 @@ const register = asyncHandler(async (req, res, next) => {
 });
 
 const login = asyncHandler(async (req, res, next) => {
-    if (!req.body.password || req.body.password.length <= 6) return next(errors.INVALID_PASSWORD);
+    if (!req.body.password || req.body.password.length < 6) return next(errors.INVALID_PASSWORD);
     const authObj = await AuthModel.findOne({
         akey: req.params.akey
     });
@@ -51,7 +51,7 @@ const login = asyncHandler(async (req, res, next) => {
 });
 
 const verifyToken = asyncHandler(async (req, res, next) => {
-    if (!req.headers.authentication || !req.headers.authentication.length) return next(errors.UNAUTHORIZED);
+    if (!req.headers.authentication || !req.headers.authentication.length) return next(errors.MISSING_AUTHENTICATION);
 
     const authObj = await AuthModel.findOne({
         akey: req.params.akey
