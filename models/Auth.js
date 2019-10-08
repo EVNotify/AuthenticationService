@@ -22,12 +22,6 @@ const AuthSchema = new mongoose.Schema({
                 },
                 message: props => `${props.value} is invalid!`
             },
-            {
-                validator: (v) => {
-                    if (v.length !== 6) return false
-                },
-                message: props => `${props.value} invalid length!`
-            },
         ],
     },
     hash: {
