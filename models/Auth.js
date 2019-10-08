@@ -18,7 +18,7 @@ const AuthSchema = new mongoose.Schema({
         validate: [
             {
                 validator: (v) => {
-                    return /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(v);
+                    return /^([a-zA-Z0-9_-]){6}$/.test(v);
                 },
                 message: props => `${props.value} is invalid!`
             },
