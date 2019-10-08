@@ -14,7 +14,21 @@ const AuthSchema = new mongoose.Schema({
     akey: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        validate: [
+            {
+                validator: (v) => {
+                    return /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(v);
+                },
+                message: props => `${props.value} is invalid!`
+            },
+            {
+                validator: (v) => {
+                    if (v.length !== 6) return false
+                },
+                message: props => `${props.value} invalid length!`
+            },
+        ],
     },
     hash: {
         type: String,
