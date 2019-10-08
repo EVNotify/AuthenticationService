@@ -39,6 +39,10 @@
         "code": 401,
         "message": "Invalid credentials"
     },
+    "MISSING_AUTHENTICATION": {
+        "code": 400,
+        "message": "Missing authentication header. Ensure that AKey token is provided within Authentication header"
+    },
     "INVALID_TOKEN": {
         "code": 401,
         "message": "Invalid token"
