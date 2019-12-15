@@ -4,8 +4,9 @@ const express = require('express');
 const errors = require('./errors.json');
 const port = process.env.PORT || 3002;
 
-const authorizationMiddleware = require('./middlewares/authorization');
+const authorizationMiddleware = require('@evnotify/middlewares').authorizationHandler;
 const authenticationRouter = require('./routes/authentication');
+const errorHandler = require('@evnotify/middlewares').errorHandler;
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -38,18 +39,7 @@ app.use('/authentication', authorizationMiddleware, authenticationRouter);
 app.use((_req, _res, next) => next(errors.UNKNOWN_ROUTE));
 
 // error handling
-app.use((err, req, res, next ) => {
-    if (!err) err = new Error();
-
-    console.error('An error occurred on ' + req.method + ' ' + req.url, err);
-
-    if (res.headersSent) return next(err);
-    const status = parseInt(err.status || err.code) || 500;
-
-    res.status(status >= 400 && status < 600 ? status : 422).json({
-        error: process.env.NODE_ENV === 'development' ? err : status === 500 ? errors.INTERNAL_ERROR.message : errors.UNPROCESSABLE_ENTITY.message
-    });
-});
+app.use(errorHandler);
 
 require('./utils/db').connect().then(() => {
     app.listen(port, () => console.log(`[HTTP] Server started on port ${port}`));
