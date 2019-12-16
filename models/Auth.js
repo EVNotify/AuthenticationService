@@ -3,7 +3,7 @@ const connection = require('@evnotify/utils').db.getDB();
 
 const options = {
     id: false,
-    collection: 'auth',
+    collection: 'authentication',
     timestamps: true,
     toObject: {
         getters: true
