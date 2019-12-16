@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const connection = require('@evnotify/utils').db.getDB();
 
 const options = {
     id: false,
@@ -34,4 +35,4 @@ const AuthSchema = new mongoose.Schema({
     }
 }, options);
 
-module.exports = mongoose.model('Auth', AuthSchema);
+module.exports = connection.model('Auth', AuthSchema);

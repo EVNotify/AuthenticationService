@@ -6,6 +6,7 @@ const port = process.env.PORT || 3002;
 
 const authorizationMiddleware = require('@evnotify/middlewares').authorizationHandler;
 const authenticationRouter = require('./routes/authentication');
+const db = require('@evnotify/utils').db;
 const errorHandler = require('@evnotify/middlewares').errorHandler;
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -41,7 +42,7 @@ app.use((_req, _res, next) => next(errors.UNKNOWN_ROUTE));
 // error handling
 app.use(errorHandler);
 
-require('./utils/db').connect().then(() => {
+db.connect().then(() => {
     app.listen(port, () => console.log(`[HTTP] Server started on port ${port}`));
     app.emit('server_ready');
 }).catch(() => {

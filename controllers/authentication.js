@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 
-const asyncHandler = require('../utils/asyncHandler');
+const asyncHandler = require('@evnotify/utils').asyncHandler;
 const AuthModel = require('../models/Auth');
 const errors = require('../errors.json');
 
