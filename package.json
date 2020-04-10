@@ -18,7 +18,7 @@
   "homepage": "https://github.com/EVNotify/AuthenticationService#readme",
   "dependencies": {
     "@evnotify/middlewares": "^1.0.5",
-    "@evnotify/utils": "^1.0.1",
+    "@evnotify/utils": "^1.0.2",
     "axios": "^0.19.0",
     "bcrypt": "^3.0.6",
     "cors": "^2.8.5",
