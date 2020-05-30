@@ -1,3 +1,4 @@
+const axios = require('axios');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 
@@ -9,8 +10,8 @@ const getUnusedAKey = asyncHandler(async (_req, res, next) => {
     const akey = crypto.randomBytes(3).toString('hex');
 
     if (!(await (AuthModel.findOne({
-        akey
-    })))) {
+            akey
+        })))) {
         return res.json({
             akey
         });
@@ -21,8 +22,8 @@ const getUnusedAKey = asyncHandler(async (_req, res, next) => {
 const register = asyncHandler(async (req, res, next) => {
     if (!req.body.password || req.body.password.length < 6) return next(errors.INVALID_PASSWORD);
     if (await (AuthModel.findOne({
-        akey: req.params.akey
-    }))) {
+            akey: req.params.akey
+        }))) {
         return next(errors.AKEY_ALREADY_REGISTERED);
     }
     const token = crypto.randomBytes(10).toString('hex');
@@ -32,8 +33,26 @@ const register = asyncHandler(async (req, res, next) => {
         hash: await bcrypt.hash(req.body.password, 10),
         token
     });
-    res.json({
-        token
+
+    axios.post(process.env.AUTHORIZATION_SERVICE, {
+        scopes: [req.params.akey]
+    }, {
+        headers: {
+            'Authorization': req.headers.authorization,
+            'Authentication': token
+        }
+    }).then((response) => {
+        res.json({
+            token,
+            key: response.data.key
+        });
+    }).catch((err) => {
+        try {
+            next(err.response.data.error || 500);
+        } catch (error) {
+            console.error(error);
+            next(500);
+        }
     });
 });
 

@@ -6,8 +6,7 @@ const authorizationMiddleware = require('@evnotify/middlewares').authorizationHa
 
 
 router.get('/akey', authorizationMiddleware, authenticationController.getUnusedAKey);
-
-router.post('/:akey/', authorizationMiddleware, authenticationController.register);
+router.post('/:akey/', authenticationController.register);
 router.post('/:akey/login', authorizationMiddleware, authenticationController.login);
 router.post('/:akey/verify', authorizationMiddleware, authenticationController.verifyToken);
 
