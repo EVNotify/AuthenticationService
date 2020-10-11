@@ -47,6 +47,7 @@ const register = asyncHandler(async (req, res, next) => {
             key: response.data.key
         });
     }).catch((err) => {
+        console.error(err);
         try {
             next(err.response.data.error || 500);
         } catch (error) {
