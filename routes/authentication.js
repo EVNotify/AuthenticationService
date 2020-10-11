@@ -15,8 +15,6 @@ const authorizationMiddleware = require('@evnotify/middlewares').authorizationHa
  * This requests will give you an unused AKey, that you can use for the registration process.
  * Note that this will just give you a currently unused combination - it's not yours in this process.
  * 
- * @apiHeader {String} authorization your API key passed as Bearer token
- * 
  * @apiSuccess {String|Number} an unused AKey
  * 
  * @apiSuccessExample A new unused AKey
