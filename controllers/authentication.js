@@ -36,11 +36,6 @@ const register = asyncHandler(async (req, res, next) => {
 
     axios.post(process.env.AUTHORIZATION_SERVICE, {
         scopes: [req.params.akey]
-    }, {
-        headers: {
-            'Authorization': req.headers.authorization,
-            'Authentication': token
-        }
     }).then((response) => {
         res.json({
             token,
