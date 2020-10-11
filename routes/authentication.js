@@ -33,7 +33,6 @@ const authorizationMiddleware = require('@evnotify/middlewares').authorizationHa
 router.get('/akey', authenticationController.getUnusedAKey);
 /**
  * @api {post} /authentication/:akey/ Creates a new account
- * @apiParam {String} akey the AKey to create an account for
  * @apiName Register
  * @apiGroup Authentication
  * 
@@ -73,7 +72,6 @@ router.get('/akey', authenticationController.getUnusedAKey);
 router.post('/:akey', authenticationController.register);
 /**
  * @api {post} /authentication/:akey/login Signs in to your account to retrieve token
- * @apiParam {String} akey the AKey to use for login
  * @apiName Login
  * @apiGroup Authentication
  * 
@@ -113,6 +111,45 @@ router.post('/:akey', authenticationController.register);
  *  }
  */
 router.post('/:akey/login', authorizationMiddleware, authenticationController.login);
+/**
+ * @api {post} /authentication/:akey/verify Checks the provided authentication
+ * @apiName VerifyToken
+ * @apiGroup Authentication
+ * 
+ * @apiDescription This will check if provided token belongs to specified AKey.
+ * Note: This is intended to be used internally to verify correct authentication and should not be used from outside.
+ * 
+ * @apiHeader {String} authorization your API Key (as a Bearer token)
+ * @apiHeader {String} authentication your token of the AKey (as a Bearer token)
+ * 
+
+ * @apiSuccess {Boolean} verified true, if authenticated
+ * 
+ * @apiSuccessExample Authentication succeeded
+ *  HTTP/1.1 200 OK
+ *  {
+ *      "verified": true
+ *  }
+ * 
+ * @apiErrorExample {json} Missing authentication
+ *  HTTP/1.1 400 Bad request
+ *  {
+ *      "code": 400,
+ *      "message": "Missing authentication header. Ensure that AKey token is provided within Authentication header"
+ *  }
+ * @apiErrorExample {json} AKey not registered
+ *  HTTP/1.1 404 Not found
+ *  {
+ *      "code": 404,
+ *      "message": "Provided AKey has not been registered"
+ *  }
+ * @apiErrorExample {json} Invalid token
+ *  HTTP/1.1 401 Unauthorized
+ *  {
+ *      "code": 404,
+ *      "message": "Invalid token"
+ *  }
+ */
 router.post('/:akey/verify', authorizationMiddleware, authenticationController.verifyToken);
 
 module.exports = router;
