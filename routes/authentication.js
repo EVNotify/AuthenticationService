@@ -71,6 +71,47 @@ router.get('/akey', authenticationController.getUnusedAKey);
  *  }
  */
 router.post('/:akey', authenticationController.register);
+/**
+ * @api {post} /authentication/:akey/login Signs in to your account to retrieve token
+ * @apiParam {String} akey the AKey to use for login
+ * @apiName Login
+ * @apiGroup Authentication
+ * 
+ * @apiDescription This will log in to your account and retrieves your personal token.
+ * This token is required to authenticate for all upcoming requests.
+ * You'll need to pass this within header soon.
+ * 
+ * @apiHeader {String} authorization your API Key (as a Bearer token)
+ * 
+ * @apiParam {String} password the password of your account (at least 6 characters)
+
+ * @apiSuccess {String} token your personal persistent token to authenticate your account against the API (without your password)
+ * 
+ * @apiSuccessExample Login succeeded
+ *  HTTP/1.1 200 OK
+ *  {
+ *      "token": "1234567890abcdefghij"
+ *  }
+ * 
+ * @apiErrorExample {json} Invalid password
+ *  HTTP/1.1 400 Bad request
+ *  {
+ *      "code": 400,
+ *      "message": "Password invalid. It must be a string with at least 6 characters"
+ *  }
+ * @apiErrorExample {json} AKey not registered
+ *  HTTP/1.1 404 Not found
+ *  {
+ *      "code": 404,
+ *      "message": "Provided AKey has not been registered"
+ *  }
+ * @apiErrorExample {json} Invalid credentials
+ *  HTTP/1.1 401 Unauthorized
+ *  {
+ *      "code": 404,
+ *      "message": "Invalid credentials"
+ *  }
+ */
 router.post('/:akey/login', authorizationMiddleware, authenticationController.login);
 router.post('/:akey/verify', authorizationMiddleware, authenticationController.verifyToken);
 
