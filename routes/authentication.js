@@ -25,7 +25,7 @@ const authorizationMiddleware = require('@evnotify/middlewares').authorizationHa
  *      "akey": "123abc"
  *  }
  */
-router.get('/akey', authorizationMiddleware, authenticationController.getUnusedAKey);
+router.get('/akey', authenticationController.getUnusedAKey);
 router.post('/:akey/', authenticationController.register);
 router.post('/:akey/login', authorizationMiddleware, authenticationController.login);
 router.post('/:akey/verify', authorizationMiddleware, authenticationController.verifyToken);
