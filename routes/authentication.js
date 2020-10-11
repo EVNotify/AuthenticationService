@@ -32,7 +32,8 @@ const authorizationMiddleware = require('@evnotify/middlewares').authorizationHa
  */
 router.get('/akey', authenticationController.getUnusedAKey);
 /**
- * @api {post} /authentication/akey/ Creates a new account
+ * @api {post} /authentication/:akey/ Creates a new account
+ * @apiParam {String} akey the AKey to create an account for
  * @apiName Register
  * @apiGroup Authentication
  * 
@@ -43,6 +44,8 @@ router.get('/akey', authenticationController.getUnusedAKey);
  * Note: Do not share the token with people or other 3rd parties you don't trust.
  * Never share your password.
  * Note: It automatically creates an API key for you. This will be used to authorize you for future requests.
+ * 
+ * @apiParam {String} password the password of your account (at least 6 characters)
  * 
  * @apiSuccess {String} key your personal API Key for your created account
  * @apiSuccess {String} token your personal persistent token to authenticate your account against the API (without your password)
